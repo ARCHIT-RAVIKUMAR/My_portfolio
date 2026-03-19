@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ARCHIT RAVIKUMAR — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --red:#E50914;
+  --bg:#141414;
+  --surface:#1f1f1f;
+  --card:#2a2a2a;
+  --text:#e5e5e5;
+  --muted:#808080;
+  --white:#fff;
+  --green:#46d369;
+  --blue:#0077b5;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#333;}
+
+/* ══════════════════════════════════
+   SPLASH
+══════════════════════════════════ */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:#141414;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+#splash.zooming .splash-name{
+  animation:splashZoom 0.8s cubic-bezier(0.4,0,1,1) forwards;
+}
+#splash.done{
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden;
+  transition:opacity 0.4s;
+}
+.splash-name{
+  font-size:clamp(3rem,8vw,6.5rem);
+  font-weight:700;
+  font-style:normal;
+  color:var(--red);
+  letter-spacing:8px;
+  text-transform:uppercase;
+  text-align:center;
+  user-select:none;
+  opacity:0;
+  animation:splashReveal 1s 0.4s forwards;
+  filter:drop-shadow(0 0 40px rgba(180,0,0,.5));
+  font-family:'Teko','Oswald',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+@keyframes splashReveal{
+  from{opacity:0;transform:scale(0.92);}
+  to{opacity:1;transform:scale(1);}
+}
+@keyframes splashZoom{
+  0%{transform:scale(1);opacity:1;}
+  60%{opacity:1;}
+  100%{transform:scale(6);opacity:0;}
+}
+@keyframes splashFadeOut{
+  to{opacity:0;pointer-events:none;visibility:hidden;}
+}
+
+/* ══════════════════════════════════
+   WHO'S WATCHING
+══════════════════════════════════ */
+#ww{
+  position:fixed;inset:0;z-index:900;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s;
+}
+#ww.show{opacity:1;pointer-events:all;}
+
+.ww-title{
+  font-size:3.2rem;font-weight:400;
+  color:var(--white);margin-bottom:52px;
+}
+.ww-row{display:flex;gap:28px;margin-bottom:52px;}
+
+/* Fuzzy monster avatars — pure CSS + SVG */
+.ww-item{
+  display:flex;flex-direction:column;align-items:center;
+  gap:14px;cursor:pointer;
+}
+.ww-item:hover .ww-av{transform:scale(1.05);outline:3px solid #fff;}
+.ww-item.picked .ww-av{outline:3px solid #fff;}
+.ww-av{
+  width:140px;height:140px;border-radius:8px;
+  overflow:hidden;position:relative;
+  transition:transform .15s,outline .15s;
+  outline:3px solid transparent;
+}
+.ww-av svg{width:100%;height:100%;display:block;}
+.ww-name{
+  font-size:1rem;font-weight:400;
+  color:var(--muted);
+  transition:color .15s;
+}
+.ww-item:hover .ww-name,.ww-item.picked .ww-name{color:var(--white);}
+
+
+/* ══════════════════════════════════
+   MAIN SITE
+══════════════════════════════════ */
+#main{
+  opacity:0;pointer-events:none;
+  transition:opacity .6s;
+  min-height:100vh;
+}
+#main.show{opacity:1;pointer-events:all;}
+
+/* ══════════════════════════════════
+   NAVBAR
+══════════════════════════════════ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  height:70px;
+  display:flex;align-items:center;
+  padding:0 40px;
+  background:linear-gradient(to bottom,rgba(0,0,0,.9) 0%,transparent 100%);
+  transition:background .3s;
+  gap:48px;
+}
+.navbar.solid{background:rgba(20,20,20,.98);backdrop-filter:blur(6px);}
+.nav-logo{
+  font-size:1.8rem;font-weight:700;font-style:normal;
+  color:var(--red);letter-spacing:2px;white-space:nowrap;
+  flex-shrink:0;font-family:'Teko','Oswald',sans-serif;
+}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{
+  color:rgba(255,255,255,.7);text-decoration:none;
+  font-size:.9rem;font-weight:500;
+  transition:color .15s;
+}
+.nav-links a:hover{color:#fff;}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
+.nav-profile-icon{
+  width:36px;height:36px;border-radius:4px;overflow:hidden;cursor:pointer;
+  flex-shrink:0;
+}
+.nav-profile-icon svg{width:100%;height:100%;}
+
+/* ══════════════════════════════════
+   HERO — full bleed photo bg
+══════════════════════════════════ */
+.hero{
+  height:100vh;min-height:600px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;
+  padding-bottom:60px;
+}
+/* Video hero backdrop gradient overlay */
+.hero-backdrop{
+  position:absolute;inset:0;z-index:0;
+  background:
+    linear-gradient(to right,rgba(0,0,0,.65) 0%,rgba(0,0,0,.15) 100%),
+    linear-gradient(to top,rgba(20,20,20,1) 0%,rgba(20,20,20,.6) 20%,transparent 55%);
+}
+
+.hero-c{
+  position:relative;z-index:2;
+  padding:0 40px;max-width:900px;
+}
+.hero-name{
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  font-weight:900;color:#fff;
+  margin-bottom:18px;line-height:1.1;
+}
+.hero-bio{
+  font-size:clamp(.82rem,.95vw+.5rem,1rem);
+  line-height:1.7;color:#fff;
+  font-weight:700;font-style:italic;
+  max-width:740px;
+  margin-bottom:30px;
+  text-shadow:0 1px 4px rgba(0,0,0,.6);
+}
+.hero-btns{display:flex;gap:14px;}
+.h-play{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;color:#000;border:none;
+  padding:13px 26px;border-radius:4px;
+  font-size:.95rem;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  transition:background .2s;
+}
+.h-play:hover{background:rgba(255,255,255,.82);}
+.h-info{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(109,109,110,.55);color:#fff;border:none;
+  padding:13px 26px;border-radius:4px;
+  font-size:.95rem;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  backdrop-filter:blur(4px);
+  transition:background .2s;
+}
+.h-info:hover{background:rgba(109,109,110,.35);}
+.hero-fade{
+  position:absolute;bottom:0;left:0;right:0;height:180px;
+  background:linear-gradient(to top,var(--bg) 0%,transparent 100%);
+  z-index:1;pointer-events:none;
+}
+
+/* ══════════════════════════════════
+   PAGE SECTIONS (router)
+══════════════════════════════════ */
+.page{display:none;min-height:calc(100vh - 70px);padding-top:90px;}
+.page.active{display:block;}
+
+/* ══════════════════════════════════
+   HOME — card rows
+══════════════════════════════════ */
+.section-title{
+  font-size:1.5rem;font-weight:700;
+  color:var(--white);
+  padding:0 40px;
+  margin-bottom:16px;
+}
+
+/* Photo card row — exactly like the screenshots */
+.photo-row{
+  display:flex;gap:6px;
+  padding:0 40px 40px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.photo-row::-webkit-scrollbar{display:none;}
+
+.photo-card{
+  flex:0 0 calc((100vw - 80px - 6px*4)/5);
+  min-width:200px;max-width:320px;
+  aspect-ratio:16/10;
+  border-radius:4px;overflow:hidden;
+  position:relative;cursor:pointer;
+  border:2px solid transparent;
+  transition:transform .25s,border-color .25s,box-shadow .25s,flex .25s;
+}
+.photo-card:hover{
+  transform:scale(1.06) translateY(-4px);
+  border-color:var(--red);
+  box-shadow:0 12px 40px rgba(0,0,0,.8);
+}
+.photo-card img{
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:brightness(.65) saturate(.8);
+  transition:filter .3s;
+}
+.photo-card:hover img{filter:brightness(.75) saturate(.9);}
+.photo-card-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 16px 14px;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 100%);
+  font-size:1.05rem;font-weight:700;color:#fff;
+}
+.photo-card.active-card{border-color:var(--red);}
+
+/* ══════════════════════════════════
+   SKILLS PAGE
+══════════════════════════════════ */
+.skills-page{padding:90px 40px 60px;}
+.skill-category{margin-bottom:52px;}
+.skill-cat-title{
+  font-size:1.8rem;font-weight:700;
+  color:#fff;text-align:center;
+  margin-bottom:8px;
+}
+.skill-cat-line{
+  width:60px;height:3px;background:var(--red);
+  margin:0 auto 32px;border-radius:2px;
+}
+.skill-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:14px;
+}
+.skill-card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:6px;
+  padding:28px 16px 22px;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  cursor:pointer;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.skill-card:hover{
+  border-color:var(--red);
+  background:rgba(229,9,20,.06);
+  transform:translateY(-3px);
+}
+.skill-card.highlighted{border-color:var(--red);box-shadow:0 0 20px rgba(229,9,20,.3);}
+.skill-icon{
+  width:52px;height:52px;
+  margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.skill-icon svg{width:100%;height:100%;}
+.skill-name{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.skill-desc{font-size:.72rem;color:var(--muted);line-height:1.4;}
+
+/* ══════════════════════════════════
+   PROJECTS PAGE
+══════════════════════════════════ */
+.projects-page{padding:90px 40px 60px;}
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+@media(max-width:900px){.projects-grid{grid-template-columns:1fr;}}
+.proj-card{
+  background:var(--surface);
+  border-radius:6px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+  cursor:pointer;
+}
+.proj-card:hover{
+  border-color:var(--red);
+  transform:translateY(-4px);
+  box-shadow:0 12px 40px rgba(0,0,0,.6);
+}
+.proj-img{
+  width:100%;height:180px;
+  object-fit:cover;
+  border-bottom:2px solid var(--red);
+  display:block;background:#222;
+}
+/* Placeholder screenshot if no image */
+.proj-img-placeholder{
+  width:100%;height:180px;
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:2px solid var(--red);
+}
+.proj-body{padding:20px;}
+.proj-title{
+  font-size:1.1rem;font-weight:700;
+  color:var(--red);margin-bottom:10px;
+}
+.proj-desc{
+  font-size:.83rem;line-height:1.65;
+  color:rgba(255,255,255,.65);margin-bottom:16px;
+}
+.proj-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.proj-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:4px;padding:5px 12px;
+  font-size:.72rem;font-weight:600;
+  color:rgba(255,255,255,.7);
+}
+.proj-tag svg{width:14px;height:14px;flex-shrink:0;}
+
+/* ══════════════════════════════════
+   PROFESSIONAL — TIMELINE
+══════════════════════════════════ */
+.pro-page{padding:90px 60px 60px;}
+.timeline-title{
+  font-size:1.8rem;font-weight:700;
+  color:#fff;text-align:center;
+  margin-bottom:60px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.timeline{
+  position:relative;
+  max-width:1200px;margin:0 auto;
+}
+/* Center vertical line */
+.timeline::before{
+  content:'';
+  position:absolute;
+  left:50%;transform:translateX(-50%);
+  top:0;bottom:0;width:2px;
+  background:rgba(255,255,255,.18);
+  z-index:0;
+}
+
+/* Each row = date + dot + card */
+.tl-item{
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  align-items:flex-start;
+  margin-bottom:56px;
+  position:relative;
+  min-height:60px;
+}
+
+/* ── ODD: card on RIGHT, date on LEFT ── */
+.tl-item.right .tl-date{
+  grid-column:1;
+  text-align:right;
+  justify-content:flex-end;
+  padding-right:36px;
+  padding-top:20px;
+}
+.tl-item.right .tl-dot-wrap{grid-column:2;}
+.tl-item.right .tl-card{
+  grid-column:3;
+  background:#f0f0f0;
+  color:#111;
+  margin-left:0;
+}
+/* Arrow from right card pointing LEFT toward dot */
+.tl-item.right .tl-card::before{
+  content:'';position:absolute;
+  top:20px;left:-12px;
+  border:12px solid transparent;
+  border-right-color:#f0f0f0;
+}
+
+/* ── EVEN: card on LEFT, date on RIGHT ── */
+.tl-item.left .tl-date{
+  grid-column:3;
+  text-align:left;
+  justify-content:flex-start;
+  padding-left:36px;
+  padding-top:20px;
+}
+.tl-item.left .tl-dot-wrap{grid-column:2;}
+.tl-item.left .tl-card{
+  grid-column:1;
+  background:#1a6eb5;
+  color:#fff;
+  border:none;
+}
+/* Arrow from left card pointing RIGHT toward dot */
+.tl-item.left .tl-card::before{
+  content:'';position:absolute;
+  top:20px;right:-12px;
+  border:12px solid transparent;
+  border-left-color:#1a6eb5;
+}
+
+/* Shared card styles */
+.tl-card{
+  border-radius:8px;
+  padding:24px 28px;
+  position:relative;
+  z-index:1;
+}
+
+/* Dot column — centered */
+.tl-dot-wrap{
+  display:flex;
+  justify-content:center;
+  padding-top:14px;
+  z-index:2;
+  position:relative;
+}
+.tl-dot{
+  width:50px;height:50px;border-radius:50%;
+  background:#2196f3;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  border:3px solid var(--bg);
+  box-shadow:0 0 0 2px rgba(33,150,243,.4);
+  z-index:3;
+}
+
+/* Date */
+.tl-date{
+  display:flex;align-items:flex-start;
+  font-size:.9rem;font-weight:600;
+  color:rgba(255,255,255,.55);
+  font-style:italic;
+}
+
+/* Card text colors — right (light bg) */
+.tl-item.right .tl-job{font-size:1.05rem;font-weight:800;color:#111;margin-bottom:4px;}
+.tl-item.right .tl-company{font-size:.85rem;font-weight:700;color:#333;margin-bottom:14px;}
+.tl-item.right .tl-tech{font-size:.82rem;color:#222;margin-bottom:12px;display:flex;align-items:flex-start;gap:6px;}
+.tl-item.right .tl-points{font-size:.82rem;line-height:1.75;color:#333;}
+.tl-item.right .tl-points p{margin-bottom:5px;}
+
+/* Card text colors — left (dark bg) */
+.tl-item.left .tl-job{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.tl-item.left .tl-company{font-size:.85rem;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:14px;}
+.tl-item.left .tl-tech{font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:12px;display:flex;align-items:flex-start;gap:6px;}
+.tl-item.left .tl-points{font-size:.82rem;line-height:1.75;color:rgba(255,255,255,.75);}
+.tl-item.left .tl-points p{margin-bottom:5px;}
+
+/* ══════════════════════════════════
+   CONTACT PAGE
+══════════════════════════════════ */
+.contact-page{
+  padding:90px 40px 60px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.contact-card{
+  background:var(--surface);
+  border:none;
+  border-radius:10px;
+  padding:32px 36px;
+  max-width:520px;width:100%;
+  margin-bottom:36px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:16px;
+}
+.contact-card-inner{
+  display:flex;gap:18px;align-items:flex-start;
+  width:100%;
+}
+.contact-avatar{
+  width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  background:linear-gradient(135deg,#1a1a2e,#2d2d6b);
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+}
+.contact-info{flex:1;}
+.contact-name{font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:4px;}
+.contact-role{font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:8px;}
+.contact-desc{font-size:.78rem;line-height:1.6;color:rgba(255,255,255,.55);margin-bottom:8px;}
+.contact-affil{font-size:.72rem;color:rgba(255,255,255,.35);}
+.contact-li-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--blue);color:#fff;border:none;
+  padding:12px 28px;border-radius:6px;font-size:.9rem;font-weight:700;
+  cursor:pointer;width:100%;font-family:inherit;
+  transition:background .2s;
+}
+.contact-li-btn:hover{background:#005f8f;}
+
+.contact-tagline{
+  font-size:1.1rem;color:rgba(255,255,255,.7);
+  text-align:center;margin-bottom:28px;
+}
+.contact-pills{display:flex;flex-direction:column;gap:12px;width:100%;max-width:440px;}
+.contact-pill{
+  display:flex;align-items:center;gap:16px;
+  background:var(--surface);
+  border:none;
+  border-radius:50px;
+  padding:14px 28px;
+  font-size:.95rem;color:#fff;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+  text-decoration:none;
+}
+.contact-pill:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.25);}
+.pill-icon{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.pill-email .pill-icon{background:rgba(229,9,20,.2);}
+.pill-phone .pill-icon{background:rgba(229,9,20,.2);}
+.contact-coffee{
+  margin-top:40px;font-size:1.1rem;
+  color:rgba(255,255,255,.6);text-align:center;
+}
+
+/* ══════════════════════════════════
+   HIRE ME
+══════════════════════════════════ */
+.hire-page{
+  padding:90px 40px 60px;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+}
+.hire-title{font-size:2.5rem;font-weight:900;color:#fff;margin-bottom:16px;}
+.hire-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:500px;margin-bottom:40px;line-height:1.7;}
+.hire-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--red);color:#fff;border:none;
+  padding:16px 40px;border-radius:4px;
+  font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:background .2s,transform .15s;
+}
+.hire-btn:hover{background:#c0030f;transform:scale(1.03);}
+
+/* ══════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+.animate{opacity:0;animation:fadeUp .5s forwards;}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" onclick="startSplash()">
+  <div class="splash-name">ARCHIT RAVIKUMAR</div>
+</div>
+
+<!-- WHO'S WATCHING -->
+<div id="ww">
+  <h1 class="ww-title">Who's Watching?</h1>
+  <div class="ww-row">
+
+    <!-- Cyan fuzzy monster — Recruiter -->
+    <div class="ww-item" onclick="pickProfile(this,'recruiter')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-cyan" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#4dd9e8"/>
+              <stop offset="60%" stop-color="#0bb8cc"/>
+              <stop offset="100%" stop-color="#0899a8"/>
+            </radialGradient>
+            <filter id="fur1">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-cyan)"/>
+          <!-- fur texture overlay -->
+          <rect width="140" height="140" fill="url(#fur-cyan)" filter="url(#fur1)" opacity=".5"/>
+          <!-- fur spikes top -->
+          <path d="M10,30 Q20,0 30,20 Q40,0 50,22 Q60,0 70,20 Q80,0 90,22 Q100,0 110,20 Q120,0 130,25 L140,0 L0,0 Z" fill="#0cc8dc"/>
+          <!-- eyes -->
+          <circle cx="48" cy="55" r="9" fill="#111"/>
+          <circle cx="92" cy="55" r="9" fill="#111"/>
+          <circle cx="51" cy="52" r="3" fill="#fff"/>
+          <circle cx="95" cy="52" r="3" fill="#fff"/>
+          <!-- freckles -->
+          <circle cx="40" cy="65" r="2.5" fill="rgba(255,255,255,.35)"/>
+          <circle cx="34" cy="68" r="2" fill="rgba(255,255,255,.3)"/>
+          <circle cx="37" cy="72" r="1.5" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="65" r="2.5" fill="rgba(255,255,255,.35)"/>
+          <circle cx="106" cy="68" r="2" fill="rgba(255,255,255,.3)"/>
+          <circle cx="103" cy="72" r="1.5" fill="rgba(255,255,255,.25)"/>
+          <!-- smile -->
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Recruiter</div>
+    </div>
+
+    <!-- Grey fuzzy monster — Developer -->
+    <div class="ww-item" onclick="pickProfile(this,'developer')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-grey" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#9a9a9a"/>
+              <stop offset="60%" stop-color="#6a6a6a"/>
+              <stop offset="100%" stop-color="#505050"/>
+            </radialGradient>
+            <filter id="fur2">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="5"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-grey)"/>
+          <rect width="140" height="140" fill="url(#fur-grey)" filter="url(#fur2)" opacity=".45"/>
+          <path d="M8,32 Q18,2 28,22 Q38,2 48,24 Q58,2 70,20 Q82,2 92,24 Q102,2 112,22 Q122,0 132,26 L140,0 L0,0 Z" fill="#888"/>
+          <circle cx="48" cy="56" r="9" fill="#111"/>
+          <circle cx="92" cy="56" r="9" fill="#111"/>
+          <circle cx="51" cy="53" r="3" fill="#fff"/>
+          <circle cx="95" cy="53" r="3" fill="#fff"/>
+          <circle cx="40" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="34" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="37" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="106" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="103" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Developer</div>
+    </div>
+
+    <!-- Red fuzzy monster — Stalker -->
+    <div class="ww-item" onclick="pickProfile(this,'stalker')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-red" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ff4444"/>
+              <stop offset="60%" stop-color="#cc1111"/>
+              <stop offset="100%" stop-color="#aa0000"/>
+            </radialGradient>
+            <filter id="fur3">
+              <feTurbulence type="fractalNoise" baseFrequency="0.88" numOctaves="4" seed="8"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-red)"/>
+          <rect width="140" height="140" fill="url(#fur-red)" filter="url(#fur3)" opacity=".5"/>
+          <path d="M5,28 Q15,0 28,22 Q40,0 52,24 Q62,0 70,20 Q78,0 88,24 Q100,0 112,22 Q124,0 136,26 L140,0 L0,0 Z" fill="#dd2222"/>
+          <circle cx="48" cy="55" r="9" fill="#111"/>
+          <circle cx="92" cy="55" r="9" fill="#111"/>
+          <circle cx="51" cy="52" r="3" fill="#fff"/>
+          <circle cx="95" cy="52" r="3" fill="#fff"/>
+          <circle cx="78" cy="65" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="85" cy="62" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="62" cy="63" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="106" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="103" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Stalker</div>
+    </div>
+
+    <!-- Yellow/Orange fuzzy monster — Adventurer -->
+    <div class="ww-item" onclick="pickProfile(this,'adventurer')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-yellow" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ffcc22"/>
+              <stop offset="60%" stop-color="#e8a800"/>
+              <stop offset="100%" stop-color="#c88800"/>
+            </radialGradient>
+            <filter id="fur4">
+              <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="11"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-yellow)"/>
+          <rect width="140" height="140" fill="url(#fur-yellow)" filter="url(#fur4)" opacity=".45"/>
+          <path d="M6,30 Q18,0 30,22 Q42,0 54,24 Q62,2 70,20 Q78,2 86,24 Q98,0 110,22 Q122,0 134,26 L140,0 L0,0 Z" fill="#f0b800"/>
+          <circle cx="48" cy="56" r="9" fill="#111"/>
+          <circle cx="92" cy="56" r="9" fill="#111"/>
+          <circle cx="51" cy="53" r="3" fill="#fff"/>
+          <circle cx="95" cy="53" r="3" fill="#fff"/>
+          <circle cx="78" cy="67" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="84" cy="64" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="62" cy="64" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="107" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Adventurer</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAIN SITE -->
+<div id="main">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">ARCHIT RAVIKUMAR</div>
+    <div class="nav-links">
+      <a href="#" onclick="goHome()">Home</a>
+      <a href="#" onclick="showPage('pro',this)">Professional</a>
+      <a href="#" onclick="showPage('skills',this)">Skills</a>
+      <a href="#" onclick="showPage('projects',this)">Projects</a>
+      <a href="#" onclick="showPage('hire',this)">Hire Me</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-profile-icon" id="nav-icon">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="nav-g" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#4dd9e8"/><stop offset="100%" stop-color="#0899a8"/></radialGradient></defs>
+          <rect width="36" height="36" fill="url(#nav-g)"/>
+          <circle cx="14" cy="16" r="3" fill="#111"/>
+          <circle cx="22" cy="16" r="3" fill="#111"/>
+          <path d="M13,22 Q18,26 23,22" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <!-- Hero -->
+    <section class="hero">
+      <video id="hero-video" autoplay muted loop playsinline
+  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(.45) saturate(.75);">
+  <source src="https://www.pexels.com/download/video/3571264/" type="video/mp4"/>
+</video>
+      <div class="hero-backdrop"></div>
+      <div class="hero-c">
+        <div class="hero-name">Archit Ravikumar — Frontend Developer</div>
+        <p class="hero-bio">
+          B.Tech CSE student at AWH Engineering College, Calicut — passionate about building
+          clean, modern web experiences. Turning ideas into real products with React, JavaScript
+          and a lot of curiosity.
+        </p>
+        <div class="hero-btns">
+          <button class="h-play" onclick="window.open('#','_blank')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            Resume
+          </button>
+          <button class="h-info" onclick="showPage('contact')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/></svg>
+            Linkedin
+          </button>
+        </div>
+      </div>
+      <div class="hero-fade"></div>
+    </section>
+
+    <!-- Today's Top Picks — profile-specific -->
+    <div style="padding-top:32px;">
+      <div class="section-title">Today's Top Picks for <span id="picks-for" style="color:var(--muted);">you</span></div>
+      <div class="photo-row" id="top-picks-row"><!-- filled by JS --></div>
+
+      <div class="section-title" style="margin-top:8px;">Continue Watching for <span id="watching-for" style="color:var(--muted);">you</span></div>
+      <div class="photo-row" id="continue-row"><!-- filled by JS --></div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL PAGE -->
+  <div id="page-pro" class="page">
+    <div class="pro-page">
+      <h2 class="timeline-title">
+        <span>📅</span> Education &amp; Learning Timeline
+      </h2>
+      <div class="timeline">
+
+        <!-- LEFT blue: current education -->
+        <div class="tl-item left">
+          <div class="tl-card">
+            <div class="tl-job">B.Tech Computer Science &amp; Engineering 🎓</div>
+            <div class="tl-company">AWH Engineering College, Calicut</div>
+            <div class="tl-tech">🔗 DSA, Web Dev, DBMS, OS, Computer Networks</div>
+            <div class="tl-points">
+              <p>* 📚 Currently pursuing B.Tech CSE — passionate about frontend development.</p>
+              <p>* Actively building projects with React, JavaScript and modern web tech.</p>
+              <p>* Continuously learning and growing through online courses and real projects.</p>
+            </div>
+          </div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+          </div>
+          <div class="tl-date">2022 – Present</div>
+        </div>
+
+        <!-- RIGHT white: self learning -->
+        <div class="tl-item right">
+          <div class="tl-date">2022 – Present</div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+            </div>
+          </div>
+          <div class="tl-card">
+            <div class="tl-job">Self Learning &amp; Development 🚀</div>
+            <div class="tl-company">Online · freeCodeCamp, YouTube, Docs</div>
+            <div class="tl-tech">🔗 HTML, CSS, JavaScript, React, Tailwind, Git</div>
+            <div class="tl-points">
+              <p>* 💡 Built multiple frontend projects from scratch independently.</p>
+              <p>* Completed courses in React and modern JavaScript (ES6+).</p>
+              <p>* Practicing DSA and problem solving regularly.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT blue: school -->
+        <div class="tl-item left">
+          <div class="tl-card">
+            <div class="tl-job">Higher Secondary Education 📖</div>
+            <div class="tl-company">ST. JOSEPH'S BOYS' H.S.S, Calicut</div>
+            <div class="tl-tech">🔗 Physics, Chemistry, Maths, Computer Science</div>
+            <div class="tl-points">
+              <p>* Completed HSE with focus on Science &amp; Computer Science.</p>
+              <p>* Developed early interest in programming and web development.</p>
+              <p>* First steps into coding — HTML, CSS and basic Python.</p>
+            </div>
+          </div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+          </div>
+          <div class="tl-date">Completed 2022</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS PAGE -->
+  <div id="page-skills" class="page">
+    <div class="skills-page">
+
+      <div class="skill-category">
+        <div class="skill-cat-title">Frontend</div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#E50914" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#c0030f" d="M256 472l149-41 35-394H256z"/><path fill="#fff" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#ebebeb" d="M256 208v56h68l-7 73-61 17v59l115-32 15-174zM256 94v56h129l-5-56z"/></svg>
+            </div>
+            <div class="skill-name">HTML5</div>
+            <div class="skill-desc">Markup Language</div>
+          </div>
+          <div class="skill-card highlighted">
+            <div class="skill-icon">
+              <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#E50914" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#c0030f" d="M256 472l149-41 35-394H256z"/><path fill="#fff" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#ebebeb" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+            </div>
+            <div class="skill-name">CSS3</div>
+            <div class="skill-desc">Styling &amp; Animations</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><rect width="256" height="256" fill="#1a1a1a" rx="8"/><path fill="#E50914" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#E50914" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+            </div>
+            <div class="skill-name">JavaScript</div>
+            <div class="skill-desc">ES6+ &amp; Modern JS</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="-11.5 -10.23 23 20.47" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+                <circle cx="0" cy="0" r="2.05" fill="#E50914"/>
+                <g stroke="#E50914" stroke-width="1" fill="none"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g>
+              </svg>
+            </div>
+            <div class="skill-name">React.js</div>
+            <div class="skill-desc">Frontend Framework</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/></svg>
+            </div>
+            <div class="skill-name">Tailwind CSS</div>
+            <div class="skill-desc">Utility-first CSS</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="skill-name">TypeScript</div>
+            <div class="skill-desc">Typed JavaScript</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-title">Backend</div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M11.998 24c-.321 0-.641-.084-.924-.252l-2.937-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.326-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.19-.137-.242L11.13 1.604c-.082-.047-.19-.047-.271 0L2.068 6.68c-.085.05-.138.144-.138.242v10.15c0 .097.053.188.137.235l2.409 1.392c1.307.654 2.108-.116 2.108-.89V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.021c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.28 18.675c-.57-.329-.924-.943-.924-1.604V6.921c0-.661.354-1.275.924-1.604L10.076.241c.557-.321 1.296-.321 1.848 0l8.795 5.076c.57.329.924.943.924 1.604v10.15c0 .661-.354 1.271-.924 1.604l-8.795 5.073c-.283.168-.603.252-.926.252z"/></svg>
+            </div>
+            <div class="skill-name">Node.js</div>
+            <div class="skill-desc">Backend Runtime</div>
+          </div>
+          <div class="skill-card highlighted">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M10.99 1.714c-.413-.195-.884-.195-1.297 0L.59 6.004C.227 6.18 0 6.56 0 6.969v10.072c0 .41.227.789.59.965l9.103 4.28c.413.195.884.195 1.297 0l9.103-4.28c.363-.176.59-.556.59-.965V6.969c0-.41-.227-.789-.59-.965zM9.5 17.177l-3.5-1.646v-3.292l3.5 1.646zm0-5.354L6 10.177V6.885l3.5 1.646zM11 8.354V4.531l3.5 1.646-3.5 2.177zm1.5 8.823V13.885l3.5-1.646v3.292z"/></svg>
+            </div>
+            <div class="skill-name">Express.js</div>
+            <div class="skill-desc">Web Framework</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M12 0C5.384 0 0 5.384 0 12s5.384 12 12 12 12-5.384 12-12S18.616 0 12 0zm0 2.4c5.295 0 9.6 4.305 9.6 9.6s-4.305 9.6-9.6 9.6S2.4 17.295 2.4 12 6.705 2.4 12 2.4zm1.2 4.8h-2.4v6l5.4 3.24.9-1.476-3.9-2.316V7.2z" opacity="0"/><path fill="#E50914" d="M17.193 10.24a5.378 5.378 0 0 0-.192-1.408c-.256-.896-.768-1.6-1.472-2.048A4.384 4.384 0 0 0 13.12 6.08a4.544 4.544 0 0 0-2.112.48 4.448 4.448 0 0 0-1.6 1.344 4.64 4.64 0 0 0-.832 1.984 5.12 5.12 0 0 0 0 2.048c.192.768.544 1.44 1.024 2.016L8.384 15.04a.448.448 0 0 0 0 .64l.96.96a.448.448 0 0 0 .64 0l1.216-1.216a4.416 4.416 0 0 0 1.952.448c.736 0 1.44-.192 2.048-.544a4.608 4.608 0 0 0 1.536-1.44 4.8 4.8 0 0 0 .64-1.92 5.952 5.952 0 0 0-.192-1.728zm-4.64 3.328a3.04 3.04 0 0 1-1.504-.384 2.88 2.88 0 0 1-1.056-1.056 3.04 3.04 0 0 1-.384-1.504c0-.544.128-1.056.384-1.504a2.88 2.88 0 0 1 1.056-1.056 3.04 3.04 0 0 1 1.504-.384c.544 0 1.056.128 1.504.384a2.88 2.88 0 0 1 1.056 1.056c.256.448.384.96.384 1.504s-.128 1.056-.384 1.504a2.88 2.88 0 0 1-1.056 1.056 3.04 3.04 0 0 1-1.504.384z"/></svg>
+            </div>
+            <div class="skill-name">MongoDB</div>
+            <div class="skill-desc">NoSQL Database</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <div class="skill-name">MySQL</div>
+            <div class="skill-desc">Relational Database</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div class="skill-name">Git / GitHub</div>
+            <div class="skill-desc">Version Control</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 1 .593-.25c.458 0 .817.368.817.817 0 .458-.36.818-.817.818a.816.816 0 0 1-.817-.818c0-.232.094-.443.224-.567zm-4.69 9.08c-3.695 0-4.739-2.887-4.739-4.765 0-2.711 1.915-5.082 5.137-5.082 1.73 0 2.96.531 3.728 1.29l-.944.903c-.573-.529-1.354-.846-2.784-.846-2.308 0-3.519 1.692-3.519 3.697 0 2.184 1.116 3.614 3.37 3.614 1.096 0 1.96-.308 2.55-.795v-2.081h-2.49v-1.266h3.805v3.908c-.786.742-2.02 1.423-3.714 1.423zm7.64-.36h-1.366v-6.75h1.366zm0-8.072h-1.366V6.867h1.366z"/></svg>
+            </div>
+            <div class="skill-name">GraphQL</div>
+            <div class="skill-desc">Query Language</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-cat-title">Cloud &amp; DevOps</div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="skill-name">Docker</div>
+            <div class="skill-desc">Containerization</div>
+          </div>
+          <div class="skill-card highlighted">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+            </div>
+            <div class="skill-name">CI/CD</div>
+            <div class="skill-desc">GitHub Actions</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <div class="skill-name">Netlify</div>
+            <div class="skill-desc">Deployment Platform</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="#E50914" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.184 4.688l5.625 3.249v6.497L12 17.683l-5.442-3.249V8.187l5.258-3.499zm0 1.312L7.75 8.562v5.812L12 16.5l4.25-2.126V8.562z"/></svg>
+            </div>
+            <div class="skill-name">Vercel</div>
+            <div class="skill-desc">Edge Deployment</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8,21 12,17 16,21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="skill-name">AWS</div>
+            <div class="skill-desc">Cloud Services</div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#E50914" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" width="52" height="52"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41"/><path d="M4.93 4.93l1.41 1.41"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M19.07 19.07l-1.41-1.41"/><path d="M20 12h2"/><path d="M2 12h2"/></svg>
+            </div>
+            <div class="skill-name">Kubernetes</div>
+            <div class="skill-desc">Container Orchestration</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECTS PAGE -->
+  <div id="page-projects" class="page">
+    <div class="projects-page">
+      <div class="projects-grid">
+
+        <!-- Project 1: Music Layer -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#1a0030,#3d0060,#1a0030);">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.7;" alt="Music Layer"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Music Layer</div>
+            <p class="proj-desc">A music player web app with layered audio controls, playlist management and a clean modern UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Smart Notes -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#001a10,#003d20,#001a10);">
+            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.6;" alt="Smart Notes"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Smart Notes</div>
+            <p class="proj-desc">A smart note-taking app with create, edit, delete and search functionality. Clean and minimal UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+              <span class="proj-tag">LocalStorage</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Calculator -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#1a1000,#3d2800,#1a1000);">
+            <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.6;" alt="Calculator"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Calculator</div>
+            <p class="proj-desc">A fully functional calculator with standard arithmetic operations, keyboard support and smooth UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Quiz App -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#001520,#003040,#001520);">
+            <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.6;" alt="Quiz App"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Quiz App</div>
+            <p class="proj-desc">An interactive quiz app with multiple categories, score tracking, timer and result summary.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: Netflix Portfolio -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#1a0000,#3d0000,#1a0000);">
+            <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.55;" alt="Netflix Portfolio"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Netflix Portfolio</div>
+            <p class="proj-desc">This very portfolio — Netflix-inspired personal portfolio with Who's Watching, cinematic hero and row-based layout.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: More Coming Soon -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#0d0d1a,#1a1a2e,#0d0d1a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(229,9,20,.4)" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span style="font-size:.75rem;color:rgba(255,255,255,.2);letter-spacing:.15em;text-transform:uppercase;">More Soon</span>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title" style="color:var(--muted);">Coming Soon</div>
+            <p class="proj-desc" style="color:rgba(255,255,255,.3);">More projects in the pipeline — currently building and learning every day. Stay tuned!</p>
+            <div class="proj-tags">
+              <span class="proj-tag" style="opacity:.4;">React</span>
+              <span class="proj-tag" style="opacity:.4;">In Progress</span>
+            </div>
+          </div>
+        </div>
+
+      </div>      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="page-contact" class="page">
+    <div class="contact-page">
+      <div class="contact-card">
+        <div class="contact-card-inner">
+          <div class="contact-avatar">👤</div>
+          <div class="contact-info">
+            <div class="contact-name">Archit Ravikumar</div>
+            <div class="contact-role">B.Tech CSE Student · Frontend Developer</div>
+            <p class="contact-desc">B.Tech CSE student at AWH Engineering College, Calicut. Passionate about frontend development and building beautiful web experiences.</p>
+            <div class="contact-affil">AWH Engineering College | Calicut, Kerala</div>
+          </div>
+        </div>
+        <button class="contact-li-btn" onclick="window.open('https://www.linkedin.com/in/archit-ravikumar','_blank')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.999 23.227 23.999 22.271V1.729C23.999.774 23.2 0 22.222 0h.003z"/></svg>
+          View Profile
+        </button>
+      </div>
+
+      <p class="contact-tagline">I'm always up for a chat or a coffee! Feel free to reach out.</p>
+
+      <div class="contact-pills">
+        <a class="contact-pill pill-email" href="mailto:itsmeartech@gmail.com">
+          <div class="pill-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--red)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6" fill="none" stroke="var(--red)" stroke-width="2"/></svg>
+          </div>
+          itsmeartech@gmail.com
+        </a>
+        <a class="contact-pill pill-phone" href="mailto:itsmeartech@gmail.com">
+          <div class="pill-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--red)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          +91 XXXXX XXXXX
+        </a>
+      </div>
+
+      <div class="contact-coffee">Or reach out — always happy to connect! 🤝</div>
+    </div>
+  </div>
+
+  <!-- HIRE ME PAGE -->
+  <div id="page-hire" class="page">
+    <div class="hire-page">
+      <h1 class="hire-title">Let's Work Together</h1>
+      <p class="hire-sub">I'm open to freelance projects, full-time roles, and exciting collaborations. If you have an idea or an opportunity, let's talk!</p>
+      <button class="hire-btn" onclick="showPage('contact')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact Me
+      </button>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ══ SPLASH ══
+let splashTriggered = false;
+function startSplash() {
+  if (splashTriggered) return;
+  splashTriggered = true;
+  const splash = document.getElementById('splash');
+  splash.style.cursor = 'default';
+
+  // 2 second pause — name sits still
+  setTimeout(() => {
+
+    // Sound + zoom start together after 2s
+    try {
+      const audio = document.getElementById('netflix-sound');
+      audio.currentTime = 0;
+      audio.play();
+    } catch(e) {}
+
+    splash.classList.add('zooming');
+
+    // Sound is ~3s — Who's Watching appears after sound ends
+    setTimeout(() => {
+      splash.classList.add('done');
+      setTimeout(() => {
+        document.getElementById('ww').classList.add('show');
+      }, 300);
+    }, 3000);
+
+  }, 2000);
+}
+
+// ══ PROFILE CARD DATA ══
+const profileCards = {
+  recruiter: {
+    picks: [
+      { label:'Work Permit',     img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75', page:'pro' },
+      { label:'Skills',          img:'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=75', page:'skills', active:true },
+      { label:'Experience',      img:'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&q=75', page:'pro' },
+      { label:'Certifications',  img:'https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=600&q=75', page:'projects' },
+      { label:'Recommendations', img:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=75', page:'hire' },
+    ],
+    watching: [
+      { label:'Music',      img:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=75', page:'contact' },
+      { label:'Reading',    img:'https://images.unsplash.com/photo-1474650745538-eb0fe20c70ea?w=600&q=75', page:'contact' },
+      { label:'Blogs',      img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=75', page:'contact' },
+      { label:'Contact Me', img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=75', page:'contact' },
+    ]
+  },
+  developer: {
+    picks: [
+      { label:'Skills',          img:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75', page:'skills', active:true },
+      { label:'Projects',        img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=75', page:'projects' },
+      { label:'Certifications',  img:'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=75', page:'projects' },
+      { label:'Experience',      img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75', page:'pro' },
+      { label:'Recommendations', img:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=75', page:'hire' },
+    ],
+    watching: [
+      { label:'Music',      img:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=75', page:'contact' },
+      { label:'Reading',    img:'https://images.unsplash.com/photo-1474650745538-eb0fe20c70ea?w=600&q=75', page:'contact' },
+      { label:'Blogs',      img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=75', page:'contact' },
+      { label:'Contact Me', img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=75', page:'contact' },
+    ]
+  },
+  stalker: {
+    picks: [
+      { label:'Recommendations', img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=75', page:'hire' },
+      { label:'Contact Me',      img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=75', page:'contact', active:true },
+      { label:'Projects',        img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75', page:'projects' },
+      { label:'Experience',      img:'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&q=75', page:'pro' },
+      { label:'Certifications',  img:'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600&q=75', page:'projects' },
+    ],
+    watching: [
+      { label:'Music',      img:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=75', page:'contact' },
+      { label:'Reading',    img:'https://images.unsplash.com/photo-1474650745538-eb0fe20c70ea?w=600&q=75', page:'contact' },
+      { label:'Blogs',      img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=75', page:'contact' },
+      { label:'Contact Me', img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=75', page:'contact' },
+    ]
+  },
+  adventurer: {
+    picks: [
+      { label:'Work Permit',     img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75', page:'pro' },
+      { label:'Skills',          img:'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=75', page:'skills', active:true },
+      { label:'Experience',      img:'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&q=75', page:'pro' },
+      { label:'Certifications',  img:'https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=600&q=75', page:'projects' },
+      { label:'Recommendations', img:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=75', page:'hire' },
+    ],
+    watching: [
+      { label:'Music',      img:'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=75', page:'contact' },
+      { label:'Reading',    img:'https://images.unsplash.com/photo-1474650745538-eb0fe20c70ea?w=600&q=75', page:'contact' },
+      { label:'Blogs',      img:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=75', page:'contact' },
+      { label:'Contact Me', img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=75', page:'contact' },
+    ]
+  }
+};
+
+function renderCards(profile) {
+  const data = profileCards[profile] || profileCards.recruiter;
+  const makeCard = c => `<div class="photo-card${c.active?' active-card':''}" onclick="showPage('${c.page}')"><img src="${c.img}" alt="${c.label}" loading="lazy"/><div class="photo-card-label">${c.label}</div></div>`;
+  const pr = document.getElementById('top-picks-row');
+  const cr = document.getElementById('continue-row');
+  if (pr) pr.innerHTML = data.picks.map(makeCard).join('');
+  if (cr) cr.innerHTML = data.watching.map(makeCard).join('');
+  const pf = document.getElementById('picks-for');
+  const wf = document.getElementById('watching-for');
+  if (pf) pf.textContent = profile;
+  if (wf) wf.textContent = profile;
+}
+
+// ══ NAV AVATAR SVGS ══
+const navAvatarSVGs = {
+  recruiter:  `<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ng1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#4dd9e8"/><stop offset="100%" stop-color="#0899a8"/></radialGradient></defs><rect width="36" height="36" rx="4" fill="url(#ng1)"/><circle cx="12" cy="13" r="3" fill="#111"/><circle cx="22" cy="13" r="3" fill="#111"/><path d="M12,21 Q18,25 24,21" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  developer:  `<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ng2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#9a9a9a"/><stop offset="100%" stop-color="#505050"/></radialGradient></defs><rect width="36" height="36" rx="4" fill="url(#ng2)"/><circle cx="12" cy="13" r="3" fill="#111"/><circle cx="22" cy="13" r="3" fill="#111"/><path d="M12,21 Q18,25 24,21" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  stalker:    `<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ng3" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#ff4444"/><stop offset="100%" stop-color="#aa0000"/></radialGradient></defs><rect width="36" height="36" rx="4" fill="url(#ng3)"/><circle cx="12" cy="13" r="3" fill="#111"/><circle cx="22" cy="13" r="3" fill="#111"/><path d="M12,21 Q18,25 24,21" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+  adventurer: `<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ng4" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#ffcc22"/><stop offset="100%" stop-color="#c88800"/></radialGradient></defs><rect width="36" height="36" rx="4" fill="url(#ng4)"/><circle cx="12" cy="13" r="3" fill="#111"/><circle cx="22" cy="13" r="3" fill="#111"/><path d="M12,21 Q18,25 24,21" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`
+};
+
+// Free stock videos from Mixkit (no copyright)
+const profileVideos = {
+  recruiter:  'https://mixkit.co/free-stock-video/download/mixkit-man-working-late-on-laptop-in-office-4813.mp4',
+  developer:  'https://mixkit.co/free-stock-video/download/mixkit-hands-holding-a-smart-phone-with-application-on-screen-4830.mp4',
+  stalker:    'https://mixkit.co/free-stock-video/download/mixkit-woman-typing-on-a-laptop-in-a-dark-room-4819.mp4',
+  adventurer: 'https://mixkit.co/free-stock-video/download/mixkit-mountain-landscape-under-a-dark-cloudy-sky-4793.mp4'
+};
+
+// ══ PROFILE SELECTION ══
+function pickProfile(el, profile) {
+  document.querySelectorAll('.ww-item').forEach(i => i.classList.remove('picked'));
+  el.classList.add('picked');
+  // Update nav avatar
+  const navIcon = document.getElementById('nav-icon');
+  if (navIcon) navIcon.innerHTML = navAvatarSVGs[profile] || navAvatarSVGs.recruiter;
+  // Switch hero video per profile
+  const vid = document.getElementById('hero-video');
+  if (vid) {
+    const src = profileVideos[profile] || profileVideos.recruiter;
+    vid.src = src;
+    vid.load();
+    vid.play().catch(()=>{});
+  }
+  // Render profile cards
+  renderCards(profile);
+  // Transition to main
+  setTimeout(() => {
+    document.getElementById('ww').classList.remove('show');
+    setTimeout(() => {
+      document.getElementById('main').classList.add('show');
+      // Show home page by default
+      showPage('home');
+    }, 350);
+  }, 380);
+}
+
+// ══ HOME = WHO'S WATCHING ══
+function goHome() {
+  // Hide main
+  document.getElementById('main').classList.remove('show');
+  // Reset video
+  const vid = document.getElementById('hero-video'); if(vid){vid.src=profileVideos.recruiter;vid.load();}
+  // Reset profile picks
+  document.querySelectorAll('.ww-item').forEach(i => i.classList.remove('picked'));
+  // Reset nav links
+  document.querySelectorAll('.nav-links a').forEach(a => a.style.color = 'rgba(255,255,255,.7)');
+  // Show Who's Watching
+  setTimeout(() => {
+    document.getElementById('ww').classList.add('show');
+  }, 300);
+  return false;
+}
+
+// ══ PAGE NAVIGATION ══
+function showPage(id, linkEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.style.color = 'rgba(255,255,255,.7)');
+  if (linkEl) linkEl.style.color = '#fff';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  return false;
+}
+
+// ══ NAVBAR SCROLL ══
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (nav) nav.classList.toggle('solid', window.scrollY > 30);
+});
+</script>
+<audio id="netflix-sound" src="netflix.mp3" preload="auto"></audio>
+</body>
+</html>
