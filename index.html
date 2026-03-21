@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ARCHIT RAVIKUMAR — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&family=Oswald:wght@700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" onclick="startSplash()">
+  <div class="splash-name">ARCHIT RAVIKUMAR</div>
+  <div class="splash-hint">
+    <span class="hint-line"></span>
+    <span class="hint-text">press anywhere to continue</span>
+    <span class="hint-line"></span>
+  </div>
+</div>
+
+<!-- WHO'S WATCHING -->
+<div id="ww">
+  <h1 class="ww-title">Who's Watching?</h1>
+  <div class="ww-row">
+
+    <!-- Cyan fuzzy monster — Recruiter -->
+    <div class="ww-item" onclick="pickProfile(this,'recruiter')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-cyan" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#4dd9e8"/>
+              <stop offset="60%" stop-color="#0bb8cc"/>
+              <stop offset="100%" stop-color="#0899a8"/>
+            </radialGradient>
+            <filter id="fur1">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-cyan)"/>
+          <!-- fur texture overlay -->
+          <rect width="140" height="140" fill="url(#fur-cyan)" filter="url(#fur1)" opacity=".5"/>
+          <!-- fur spikes top -->
+          <path d="M10,30 Q20,0 30,20 Q40,0 50,22 Q60,0 70,20 Q80,0 90,22 Q100,0 110,20 Q120,0 130,25 L140,0 L0,0 Z" fill="#0cc8dc"/>
+          <!-- eyes -->
+          <circle cx="48" cy="55" r="9" fill="#111"/>
+          <circle cx="92" cy="55" r="9" fill="#111"/>
+          <circle cx="51" cy="52" r="3" fill="#fff"/>
+          <circle cx="95" cy="52" r="3" fill="#fff"/>
+          <!-- freckles -->
+          <circle cx="40" cy="65" r="2.5" fill="rgba(255,255,255,.35)"/>
+          <circle cx="34" cy="68" r="2" fill="rgba(255,255,255,.3)"/>
+          <circle cx="37" cy="72" r="1.5" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="65" r="2.5" fill="rgba(255,255,255,.35)"/>
+          <circle cx="106" cy="68" r="2" fill="rgba(255,255,255,.3)"/>
+          <circle cx="103" cy="72" r="1.5" fill="rgba(255,255,255,.25)"/>
+          <!-- smile -->
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Recruiter</div>
+    </div>
+
+    <!-- Grey fuzzy monster — Developer -->
+    <div class="ww-item" onclick="pickProfile(this,'developer')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-grey" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#9a9a9a"/>
+              <stop offset="60%" stop-color="#6a6a6a"/>
+              <stop offset="100%" stop-color="#505050"/>
+            </radialGradient>
+            <filter id="fur2">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="5"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-grey)"/>
+          <rect width="140" height="140" fill="url(#fur-grey)" filter="url(#fur2)" opacity=".45"/>
+          <path d="M8,32 Q18,2 28,22 Q38,2 48,24 Q58,2 70,20 Q82,2 92,24 Q102,2 112,22 Q122,0 132,26 L140,0 L0,0 Z" fill="#888"/>
+          <circle cx="48" cy="56" r="9" fill="#111"/>
+          <circle cx="92" cy="56" r="9" fill="#111"/>
+          <circle cx="51" cy="53" r="3" fill="#fff"/>
+          <circle cx="95" cy="53" r="3" fill="#fff"/>
+          <circle cx="40" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="34" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="37" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="106" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="103" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Developer</div>
+    </div>
+
+    <!-- Red fuzzy monster — Stalker -->
+    <div class="ww-item" onclick="pickProfile(this,'stalker')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-red" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ff4444"/>
+              <stop offset="60%" stop-color="#cc1111"/>
+              <stop offset="100%" stop-color="#aa0000"/>
+            </radialGradient>
+            <filter id="fur3">
+              <feTurbulence type="fractalNoise" baseFrequency="0.88" numOctaves="4" seed="8"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-red)"/>
+          <rect width="140" height="140" fill="url(#fur-red)" filter="url(#fur3)" opacity=".5"/>
+          <path d="M5,28 Q15,0 28,22 Q40,0 52,24 Q62,0 70,20 Q78,0 88,24 Q100,0 112,22 Q124,0 136,26 L140,0 L0,0 Z" fill="#dd2222"/>
+          <circle cx="48" cy="55" r="9" fill="#111"/>
+          <circle cx="92" cy="55" r="9" fill="#111"/>
+          <circle cx="51" cy="52" r="3" fill="#fff"/>
+          <circle cx="95" cy="52" r="3" fill="#fff"/>
+          <circle cx="78" cy="65" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="85" cy="62" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="62" cy="63" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="106" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="103" cy="74" r="1.5" fill="rgba(255,255,255,.2)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Stalker</div>
+    </div>
+
+    <!-- Yellow/Orange fuzzy monster — Adventurer -->
+    <div class="ww-item" onclick="pickProfile(this,'adventurer')">
+      <div class="ww-av">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fur-yellow" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#ffcc22"/>
+              <stop offset="60%" stop-color="#e8a800"/>
+              <stop offset="100%" stop-color="#c88800"/>
+            </radialGradient>
+            <filter id="fur4">
+              <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="11"/>
+              <feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <rect width="140" height="140" fill="url(#fur-yellow)"/>
+          <rect width="140" height="140" fill="url(#fur-yellow)" filter="url(#fur4)" opacity=".45"/>
+          <path d="M6,30 Q18,0 30,22 Q42,0 54,24 Q62,2 70,20 Q78,2 86,24 Q98,0 110,22 Q122,0 134,26 L140,0 L0,0 Z" fill="#f0b800"/>
+          <circle cx="48" cy="56" r="9" fill="#111"/>
+          <circle cx="92" cy="56" r="9" fill="#111"/>
+          <circle cx="51" cy="53" r="3" fill="#fff"/>
+          <circle cx="95" cy="53" r="3" fill="#fff"/>
+          <circle cx="78" cy="67" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="84" cy="64" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="62" cy="64" r="2" fill="rgba(255,255,255,.25)"/>
+          <circle cx="100" cy="66" r="2.5" fill="rgba(255,255,255,.3)"/>
+          <circle cx="107" cy="70" r="2" fill="rgba(255,255,255,.25)"/>
+          <path d="M52,82 Q70,96 88,82" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="ww-name">Adventurer</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAIN SITE -->
+<div id="main">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo" onclick="restartSplash()" style="cursor:pointer;">ARCHIT RAVIKUMAR</div>
+    <div class="nav-links">
+      <a href="#" onclick="goHome()">Home</a>
+      <a href="#" onclick="showPage('pro',this)">Professional</a>
+      <a href="#" onclick="showPage('skills',this)">Skills</a>
+      <a href="#" onclick="showPage('projects',this)">Projects</a>
+      <a href="#" onclick="showPage('hire',this)">Hire Me</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-profile-icon" id="nav-icon">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="nav-g" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#4dd9e8"/><stop offset="100%" stop-color="#0899a8"/></radialGradient></defs>
+          <rect width="36" height="36" fill="url(#nav-g)"/>
+          <circle cx="14" cy="16" r="3" fill="#111"/>
+          <circle cx="22" cy="16" r="3" fill="#111"/>
+          <path d="M13,22 Q18,26 23,22" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <!-- Hero -->
+    <section class="hero">
+      <video id="hero-video" autoplay muted loop playsinline
+  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(.45) saturate(.75);">
+  <source src="hero.mp4" type="video/mp4"/></video>
+      <div class="hero-backdrop"></div>
+      <div class="hero-c">
+        <div class="hero-name" id="hero-name">Archit Ravikumar — Frontend Developer 🚀</div>
+        <p class="hero-bio" id="hero-bio">
+          B.Tech CSE student at AWH Engineering College, Calicut — passionate about building
+          clean, modern web experiences. Turning ideas into real products with React, JavaScript
+          and a lot of curiosity.
+        </p>
+        <div class="hero-btns">
+          <button class="h-play" onclick="window.open('https://drive.google.com/file/d/1UGNgntIKU0s-0fpYqCm-Zct_HhsOswV3/view','_blank')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            Resume
+          </button>
+          <button class="h-info" onclick="window.open('https://www.linkedin.com/in/archit-ravikumar','_blank')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </button>
+        </div>
+      </div>
+      <div class="hero-fade"></div>
+    </section>
+
+    <!-- Today's Top Picks — profile-specific -->
+    <div style="padding-top:32px;">
+      <div class="section-title">Today's Top Picks for <span id="picks-for" style="color:var(--muted);font-size:1.5rem;font-weight:700;font-family:inherit;">you</span></div>
+      <div class="photo-row" id="top-picks-row"><!-- filled by JS --></div>
+
+      <div class="section-title" style="margin-top:8px;">Continue Watching for <span id="watching-for" style="color:var(--muted);font-size:1.5rem;font-weight:700;font-family:inherit;">you</span></div>
+      <div class="photo-row" id="continue-row"><!-- filled by JS --></div>
+    </div>
+  </div>
+
+  <!-- PROFESSIONAL PAGE -->
+  <div id="page-pro" class="page">
+    <div class="pro-page">
+      <h2 class="timeline-title">
+        <span>📅</span> Education &amp; Learning Timeline
+      </h2>
+      <div class="timeline">
+
+        <!-- LEFT blue: current education -->
+        <div class="tl-item left">
+          <div class="tl-card">
+            <div class="tl-job">B.Tech Computer Science &amp; Engineering 🎓</div>
+            <div class="tl-company">AWH Engineering College, Calicut</div>
+            <div class="tl-tech">🔗 DSA, Web Dev, DBMS, OS, Computer Networks</div>
+            <div class="tl-points">
+              <p>* 📚 Currently pursuing B.Tech CSE — passionate about frontend development.</p>
+              <p>* Actively building projects with React, JavaScript and modern web tech.</p>
+              <p>* Continuously learning and growing through online courses and real projects.</p>
+            </div>
+          </div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+          </div>
+          <div class="tl-date">2025</div>
+        </div>
+
+        <!-- RIGHT white: self learning -->
+        <div class="tl-item right">
+          <div class="tl-date">2024</div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26 12,2"/></svg>
+            </div>
+          </div>
+          <div class="tl-card">
+            <div class="tl-job">Self Learning &amp; Development 🚀</div>
+            <div class="tl-company">Online · freeCodeCamp, YouTube, Docs</div>
+            <div class="tl-tech">🔗 HTML, CSS, JavaScript, React, Tailwind, Git</div>
+            <div class="tl-points">
+              <p>* 💡 Built multiple frontend projects from scratch independently.</p>
+              <p>* Completed courses in React and modern JavaScript (ES6+).</p>
+              <p>* Practicing DSA and problem solving regularly.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT blue: school -->
+        <div class="tl-item left">
+          <div class="tl-card">
+            <div class="tl-job">Higher Secondary Education 📖</div>
+            <div class="tl-company">ST. JOSEPH'S BOYS' H.S.S, Calicut</div>
+            <div class="tl-tech">🔗 Physics, Chemistry, Maths, Computer Science</div>
+            <div class="tl-points">
+              <p>* Completed HSE with focus on Science &amp; Computer Science.</p>
+              <p>* Developed early interest in programming and web development.</p>
+              <p>* First steps into coding — HTML, CSS and basic Python.</p>
+            </div>
+          </div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+          </div>
+          <div class="tl-date">2023</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS PAGE -->
+  <div id="page-skills" class="page">
+    <div class="skills-page">
+
+      <!-- FRONTEND -->
+      <div class="skill-category">
+        <div class="skill-cat-title">Frontend</div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48" height="48">
+                <path fill="#e34c26" d="M4 2l2.6 29.2L16 34l9.4-2.8L28 2z"/>
+                <path fill="#ef652a" d="M16 31.5V4.5h9.3l-2.2 24.8z"/>
+                <text x="16" y="22" text-anchor="middle" font-size="14" font-weight="900" fill="#fff" font-family="Arial,sans-serif">5</text>
+              </svg>
+            </div>
+            <div class="skill-name">HTML5</div>
+            <div class="skill-desc">Markup Language</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48" height="48">
+                <path fill="#1572b6" d="M4 2l2.6 29.2L16 34l9.4-2.8L28 2z"/>
+                <path fill="#33a9dc" d="M16 31.5V4.5h9.3l-2.2 24.8z"/>
+                <text x="16" y="22" text-anchor="middle" font-size="14" font-weight="900" fill="#fff" font-family="Arial,sans-serif">3</text>
+              </svg>
+            </div>
+            <div class="skill-name">CSS3</div>
+            <div class="skill-desc">Styling &amp; Animations</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="4" fill="#F7DF1E"/>
+                <path d="M26 36.5c.7 1.2 1.6 2 3.2 2 1.3 0 2.2-.7 2.2-1.6 0-1.1-.9-1.5-2.4-2.1l-.8-.4c-2.4-1-4-2.3-4-5 0-2.5 1.9-4.4 4.8-4.4 2.1 0 3.6.7 4.6 2.6l-2.5 1.6c-.6-1-.1-1.4-1-1.4-1 0-1.6.6-1.6 1.4 0 1 .6 1.4 2 2l.8.4c2.8 1.2 4.4 2.4 4.4 5.2 0 3-2.3 4.6-5.5 4.6-3 0-5-1.5-6-3.4l2.8-1.5zM17 36.2c.5.9 1 1.6 2 1.6.9 0 1.5-.4 1.5-1.8v-10h3.2v10.1c0 3-1.8 4.4-4.4 4.4-2.4 0-3.8-1.2-4.5-2.7l2.2-1.6z"/>
+              </svg>
+            </div>
+            <div class="skill-name">JavaScript</div>
+            <div class="skill-desc">ES6+ &amp; Modern JS</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="4" fill="#61DAFB"/>
+                <g fill="none" stroke="#61DAFB" stroke-width="2">
+                  <ellipse rx="18" ry="7" cx="24" cy="24"/>
+                  <ellipse rx="18" ry="7" cx="24" cy="24" transform="rotate(60 24 24)"/>
+                  <ellipse rx="18" ry="7" cx="24" cy="24" transform="rotate(120 24 24)"/>
+                </g>
+              </svg>
+            </div>
+            <div class="skill-name">React.js</div>
+            <div class="skill-desc">Frontend Framework</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg viewBox="0 0 54 33" xmlns="http://www.w3.org/2000/svg" width="52" height="32"><path fill-rule="evenodd" clip-rule="evenodd" d="M27 0C19.8 0 15.3 3.6 13.5 10.8c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C30.744 12.672 33.514 15.6 40.5 15.6c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.514-3.522-2.004-5.147-3.653C36.756 2.928 33.986 0 27 0zM13.5 15.6C6.3 15.6 1.8 19.2 0 26.4c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 28.272 20.014 31.2 27 31.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.514-3.522-2.004-5.147-3.653C23.256 18.528 20.486 15.6 13.5 15.6z" fill="#38BDF8"/></svg>
+            </div>
+            <div class="skill-name">Tailwind CSS</div>
+            <div class="skill-desc">Utility-first CSS</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg viewBox="0 0 97 97" xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path fill="#F05032" d="M92.71 44.408L52.591 4.291c-2.31-2.311-6.057-2.311-8.369 0l-8.33 8.332 10.566 10.566c2.454-.83 5.272-.274 7.229 1.683 1.968 1.967 2.513 4.807 1.661 7.275l10.185 10.185c2.468-.853 5.31-.308 7.276 1.659 2.75 2.749 2.75 7.208 0 9.959-2.752 2.749-7.208 2.749-9.961 0-2.067-2.066-2.571-5.055-1.537-7.6L51.98 35.913v25.381c.556.275 1.08.638 1.542 1.099 2.75 2.749 2.75 7.208 0 9.959-2.752 2.749-7.208 2.749-9.961 0-2.75-2.751-2.75-7.21 0-9.959.568-.568 1.239-1.013 1.956-1.322V35.913c-.717-.308-1.387-.754-1.956-1.322-2.086-2.085-2.57-5.097-1.522-7.654L31.882 16.532 4.79 43.624a5.917 5.917 0 0 0 0 8.371L44.91 92.115c2.311 2.311 6.059 2.311 8.371 0l39.43-39.43a5.922 5.922 0 0 0 0-8.277z"/></svg>
+            </div>
+            <div class="skill-name">Git</div>
+            <div class="skill-desc">Version Control</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BACKEND -->
+      <div class="skill-category">
+        <div class="skill-cat-title">
+          Backend
+          <span class="learning-badge">Currently Learning</span>
+        </div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="48" height="48"><polygon fill="#83CD29" points="30,2 58,17 58,47 30,62 2,47 2,17"/><polygon fill="#404137" points="30,4 30,60 4,46 4,18"/><circle cx="30" cy="30" r="8" fill="#fff"/></svg>
+            </div>
+            <div class="skill-name">Node.js</div>
+            <div class="skill-desc">Backend Runtime</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="48" height="48"><rect width="50" height="50" rx="5" fill="#222"/><path fill="#fff" d="M10 35V15h4v16h12v4zm18-20h4v5l5-5h5l-7 7 8 13h-5l-5-9-3 3v6h-4z"/></svg>
+            </div>
+            <div class="skill-name">Express.js</div>
+            <div class="skill-desc">Web Framework</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="48" height="48"><path fill="#47A248" d="M16 2C9 8 7 15 8 21c1 4 3 7 6 9l1 1v-5c-3-2-5-5-5-9 0-6 3-11 6-14 3 3 6 8 6 14 0 4-2 7-5 9v5l1-1c3-2 5-5 6-9 1-6-1-13-8-19z"/><path fill="#47A248" d="M17 30v-8c-1 0-2 1-2 2v6l1 1 1-1z"/></svg>
+            </div>
+            <div class="skill-name">MongoDB</div>
+            <div class="skill-desc">NoSQL Database</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><path fill="#00758F" d="M64 8C32 8 8 32 8 64s24 56 56 56 56-24 56-56S96 8 64 8zm0 12c24 0 44 20 44 44S88 108 64 108 20 88 20 64s20-44 44-44z"/><ellipse cx="64" cy="40" rx="24" ry="7" fill="#00758F"/><path d="M40 40v16c0 4 11 7 24 7s24-3 24-7V40" fill="none" stroke="#00758F" stroke-width="2"/><path d="M40 56v16c0 4 11 7 24 7s24-3 24-7V56" fill="none" stroke="#00758F" stroke-width="2"/></svg>
+            </div>
+            <div class="skill-name">MySQL</div>
+            <div class="skill-desc">Relational Database</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="skill-category">
+        <div class="skill-cat-title">Tools &amp; Others</div>
+        <div class="skill-cat-line"></div>
+        <div class="skill-grid">
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill="#E50914" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </div>
+            <div class="skill-name">GitHub</div>
+            <div class="skill-desc">Code Hosting</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 57" width="38" height="48"><path fill="#E50914" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#c0030f" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff6b6b" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#E50914" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#c0030f" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>
+            </div>
+            <div class="skill-name">Figma</div>
+            <div class="skill-desc">UI Design Tool</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><rect width="24" height="24" rx="2" fill="#E50914"/><path fill="#fff" d="M3 21V9h18v12h-7v-8h-4v8z"/></svg>
+            </div>
+            <div class="skill-name">npm</div>
+            <div class="skill-desc">Package Manager</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill="#E50914" d="M12 2L2 20h20L12 2z"/></svg>
+            </div>
+            <div class="skill-name">Vercel</div>
+            <div class="skill-desc">Deployment</div>
+          </div>
+
+          <div class="skill-card sk-anim">
+            <div class="skill-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><path fill="#E50914" d="M64 8L8 64l56 56 56-56zm0 20l36 36-36 36-36-36z"/><path fill="#c0030f" d="M64 44l20 20-20 20-20-20z"/></svg>
+            </div>
+            <div class="skill-name">Netlify</div>
+            <div class="skill-desc">Deployment</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECTS PAGE -->
+  <div id="page-projects" class="page">
+    <div class="projects-page">
+      <div class="projects-grid">
+
+        <!-- Project 1: Music Player -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#1a0030,#3d0060,#1a0030);">
+            <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.7;" alt="Music Player"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Music Player</div>
+            <p class="proj-desc">A music player web app with layered audio controls, playlist management and a clean modern UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Smart Notes -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#001a10,#003d20,#001a10);">
+            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.6;" alt="Smart Notes"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Smart Notes</div>
+            <p class="proj-desc">A smart note-taking app with create, edit, delete and search functionality. Clean and minimal UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Calculator -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#1a1000,#3d2800,#1a1000);">
+            <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.6;" alt="Calculator"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Calculator</div>
+            <p class="proj-desc">A fully functional calculator with standard arithmetic operations, keyboard support and smooth UI.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Weather-Now -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#001a2e,#003d5c,#001a2e);">
+            <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.65;" alt="Weather-Now"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Weather-Now</div>
+            <p class="proj-desc">A responsive Weather App that allows users to search for a city and view current weather details along with a forecast.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+                Weather API
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: Quiz App -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#001520,#003040,#001520);">
+            <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=600&q=75"
+              style="width:100%;height:100%;object-fit:cover;opacity:.65;" alt="Quiz App"/>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title">Quiz App</div>
+            <p class="proj-desc">An interactive quiz app with multiple categories, score tracking, timer and result summary.</p>
+            <div class="proj-tags">
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#e34c26" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#ef652a" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208h-75l-5-58h80V94H114l13 150h129zm0 147l-64-17-4-45h-56l8 87 116 32z"/><path fill="#fff" d="M256 208v56h70l-7 73-63 17v59l116-32 85-174zm0-114v56h136l-5-56z"/></svg>
+                HTML5
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 512 512"><path fill="#264de4" d="M71 460L30 0h451l-41 460-185 52z"/><path fill="#2965f1" d="M256 472l149-41 35-394H256z"/><path fill="#ebebeb" d="M256 208H140l5 57h111zm-11-114H134l5 57h117z"/><path fill="#fff" d="M256 208v57h68l-7 73-61 17v59l115-32 15-174zM256 94v57h129l-5-57z"/></svg>
+                CSS3
+              </span>
+              <span class="proj-tag">
+                <svg width="14" height="14" viewBox="0 0 256 256"><rect width="256" height="256" fill="#f0db4f" rx="8"/><path fill="#323330" d="M67 213l19-12c4 6 7 11 15 11s13-4 13-18v-99h24v100c0 30-18 44-44 44z"/><path fill="#323330" d="M151 211l19-11c5 9 12 15 24 15 10 0 17-5 17-12 0-8-7-11-18-16l-6-3c-18-8-30-18-30-38 0-19 14-33 36-33 16 0 27 5 35 19l-18 12c-4-7-9-10-17-10s-13 4-13 10c0 7 5 10 16 15l6 2c21 9 33 18 33 40 0 23-18 35-43 35-24 0-40-12-48-25z"/></svg>
+                JavaScript
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: More Coming Soon -->
+        <div class="proj-card">
+          <div class="proj-img-placeholder" style="background:linear-gradient(135deg,#0d0d1a,#1a1a2e,#0d0d1a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(229,9,20,.4)" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span style="font-size:.75rem;color:rgba(255,255,255,.2);letter-spacing:.15em;text-transform:uppercase;">More Soon</span>
+          </div>
+          <div class="proj-body">
+            <div class="proj-title" style="color:var(--muted);">Coming Soon</div>
+            <p class="proj-desc" style="color:rgba(255,255,255,.3);">More projects in the pipeline — currently building and learning every day. Stay tuned!</p>
+            <div class="proj-tags">
+              <span class="proj-tag" style="opacity:.4;">React</span>
+              <span class="proj-tag" style="opacity:.4;">In Progress</span>
+            </div>
+          </div>
+        </div>
+
+      </div>      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="page-contact" class="page">
+    <div class="contact-page">
+      <div class="contact-card">
+        <div class="contact-card-inner">
+          <div class="contact-avatar" style="padding:0;overflow:hidden;border-radius:50%;"><img src="https://github.com/ARCHIT-RAVIKUMAR.png" style="width:100%;height:100%;object-fit:cover;" alt="Archit Ravikumar"/></div>
+          <div class="contact-info">
+            <div class="contact-name">Archit Ravikumar</div>
+            <div class="contact-role">B.Tech CSE Student · Frontend Developer</div>
+            <p class="contact-desc">B.Tech CSE student at AWH Engineering College, Calicut. Passionate about frontend development and building beautiful web experiences.</p>
+            <div class="contact-affil">AWH Engineering College | Calicut, Kerala</div>
+          </div>
+        </div>
+        <button class="contact-li-btn" onclick="window.open('https://www.linkedin.com/in/archit-ravikumar','_blank')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.999 23.227 23.999 22.271V1.729C23.999.774 23.2 0 22.222 0h.003z"/></svg>
+          View Profile
+        </button>
+      </div>
+
+      <p class="contact-tagline">I'm always up for a chat or a coffee! Feel free to reach out.</p>
+
+      <div class="contact-pills">
+        <a class="contact-pill pill-email" href="mailto:itsmeartech@gmail.com">
+          <div class="pill-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          itsmeartech@gmail.com
+        </a>
+        <a class="contact-pill pill-phone" href="mailto:itsmeartech@gmail.com">
+          <div class="pill-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--red)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          +91 XXXXX XXXXX
+        </a>
+      </div>
+
+      <div class="contact-coffee">Or reach out — always happy to connect! 🤝</div>
+    </div>
+  </div>
+
+  <!-- HIRE ME PAGE -->
+  <div id="page-hire" class="page">
+    <div class="hire-page">
+      <div class="hire-badge">Hire Me</div>
+      <h1 class="hire-title">Let's Build Something<br/><span>Amazing Together</span></h1>
+      <p class="hire-sub">I'm a B.Tech CSE student passionate about frontend development. Open to internships, freelance projects, collaborations and exciting opportunities!</p>
+
+      <div class="hire-cards">
+        <div class="hire-card">
+          <div class="hire-card-icon">💼</div>
+          <div class="hire-card-title">Internships</div>
+          <div class="hire-card-desc">Looking for frontend internship opportunities</div>
+        </div>
+        <div class="hire-card">
+          <div class="hire-card-icon">🚀</div>
+          <div class="hire-card-title">Freelance</div>
+          <div class="hire-card-desc">Available for freelance web projects</div>
+        </div>
+        <div class="hire-card">
+          <div class="hire-card-icon">🤝</div>
+          <div class="hire-card-title">Collaborate</div>
+          <div class="hire-card-desc">Open to open-source and team projects</div>
+        </div>
+        <div class="hire-card">
+          <div class="hire-card-icon">📚</div>
+          <div class="hire-card-title">Learn &amp; Grow</div>
+          <div class="hire-card-desc">Eager to learn from experienced developers</div>
+        </div>
+      </div>
+
+      <div class="hire-btns">
+        <button class="hire-btn" onclick="showPage('contact')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Contact Me
+        </button>
+        <button class="hire-btn-ghost" onclick="window.open('https://www.linkedin.com/in/archit-ravikumar','_blank')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View LinkedIn
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script src="app.js"></script>
+<audio id="netflix-sound" src="netflix.mp3" preload="auto"></audio>
+</body>
+</html>
