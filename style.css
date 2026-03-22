@@ -41,14 +41,15 @@ body{
   transition:opacity 0.4s;
 }
 .splash-name{
-  font-size:clamp(2.5rem,6vw,5.5rem);
+  font-size:clamp(1.6rem,7vw,5.5rem);
   font-weight:700;
   font-style:normal;
   color:var(--red);
-  letter-spacing:8px;
+  letter-spacing:clamp(2px,1.5vw,8px);
   text-transform:uppercase;
   text-align:center;
   white-space:nowrap;
+  padding:0 16px;
   user-select:none;
   opacity:0;
   animation:splashReveal 1s 0.4s forwards;
@@ -127,10 +128,15 @@ body{
 #ww.show{opacity:1;pointer-events:all;}
 
 .ww-title{
-  font-size:3.2rem;font-weight:400;
-  color:var(--white);margin-bottom:52px;
+  font-size:clamp(1.6rem,6vw,3.2rem);font-weight:400;
+  color:var(--white);margin-bottom:clamp(24px,5vw,52px);
+  text-align:center;padding:0 16px;
 }
-.ww-row{display:flex;gap:28px;margin-bottom:52px;}
+.ww-row{
+  display:flex;gap:clamp(14px,3vw,28px);margin-bottom:52px;
+  flex-wrap:wrap;justify-content:center;
+  padding:0 16px;
+}
 
 /* Fuzzy monster avatars — pure CSS + SVG */
 .ww-item{
@@ -140,7 +146,7 @@ body{
 .ww-item:hover .ww-av{transform:scale(1.05);outline:3px solid #fff;}
 .ww-item.picked .ww-av{outline:3px solid #fff;}
 .ww-av{
-  width:140px;height:140px;border-radius:8px;
+  width:clamp(100px,22vw,140px);height:clamp(100px,22vw,140px);border-radius:8px;
   overflow:hidden;position:relative;
   transition:transform .15s,outline .15s;
   outline:3px solid transparent;
@@ -172,15 +178,15 @@ body{
   position:fixed;top:0;left:0;right:0;z-index:800;
   height:70px;
   display:flex;align-items:center;
-  padding:0 40px;
+  padding:0 clamp(16px,4vw,40px);
   background:linear-gradient(to bottom,rgba(0,0,0,.9) 0%,transparent 100%);
   transition:background .3s;
-  gap:48px;
+  gap:clamp(12px,3vw,48px);
 }
 .navbar.solid{background:rgba(20,20,20,.98);backdrop-filter:blur(6px);}
 .nav-logo{
-  font-size:1.8rem;font-weight:700;font-style:normal;
-  color:var(--red);letter-spacing:2px;white-space:nowrap;
+  font-size:clamp(1.1rem,3.5vw,1.8rem);font-weight:700;font-style:normal;
+  color:var(--red);letter-spacing:clamp(0px,0.5vw,2px);white-space:nowrap;
   flex-shrink:0;font-family:'Teko','Oswald',sans-serif;
 }
 .nav-links{display:flex;gap:28px;}
@@ -736,110 +742,85 @@ body{
 .animate{opacity:0;animation:fadeUp .5s forwards;}
 
 /* ══════════════════════════════════
-   MOBILE RESPONSIVE — 768px & below
+   MOBILE RESPONSIVE — ≤ 600px
 ══════════════════════════════════ */
-@media(max-width:768px){
+@media(max-width:600px){
 
-  /* ── Navbar ── */
-  .navbar{
-    padding:0 16px;
-    gap:12px;
-    height:60px;
-  }
-  .nav-links{
-    display:none; /* hide text links; keep logo + profile icon */
-  }
-  .nav-logo{font-size:1.4rem;}
+  /* Navbar: hide text links, keep logo + icon */
+  .nav-links{display:none;}
+  .navbar{gap:0;}
 
-  /* ── Who's Watching ── */
-  .ww-title{
-    font-size:1.8rem;
-    text-align:center;
-    padding:0 16px;
-    margin-bottom:32px;
-  }
-  .ww-row{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:16px;
-    padding:0 16px;
-    margin-bottom:32px;
-  }
-  .ww-av{width:100px;height:100px;}
-
-  /* ── Hero ── */
-  .hero{
-    padding-bottom:40px;
-    align-items:flex-end;
-  }
-  .hero-c{padding:0 16px;max-width:100%;}
+  /* Hero */
+  .hero-c{padding:0 20px;}
   .hero-btns{flex-direction:column;gap:10px;}
   .h-play,.h-info{width:100%;justify-content:center;}
 
-  /* ── Section titles & photo rows ── */
-  .section-title{padding:0 16px;}
-  .photo-row{padding:0 16px 32px;}
-  .photo-card{
-    flex:0 0 72vw;
-    min-width:0;
-    max-width:none;
-  }
+  /* Home card rows */
+  .section-title{padding:0 20px;}
+  .photo-row{padding:0 20px 28px;}
 
-  /* ── Skills page ── */
-  .skills-page{padding:80px 16px 48px;}
-  .skill-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;}
+  /* Skills page */
+  .skills-page{padding:90px 20px 60px;}
+  .skill-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
 
-  /* ── Projects page ── */
-  .projects-page{padding:80px 16px 48px;}
+  /* Projects page */
+  .projects-page{padding:90px 20px 60px;}
+  .projects-grid{grid-template-columns:1fr;}
 
-  /* ── Professional / Timeline ── */
-  .pro-page{padding:80px 16px 48px;}
-  .timeline::before{left:20px;} /* move line to left edge */
+  /* Professional / Timeline — collapse to single column */
+  .pro-page{padding:90px 16px 60px;}
+  .timeline::before{left:24px;}
   .tl-item{
-    /* stack everything in a single column */
     grid-template-columns:40px 1fr;
-    margin-bottom:36px;
+    grid-template-rows:auto auto;
   }
-  /* Date: hide or show below card */
-  .tl-item.right .tl-date,
-  .tl-item.left .tl-date{
-    display:none; /* dates hidden on mobile to save space */
-  }
-  /* Dot: always in first column */
   .tl-item.right .tl-dot-wrap,
-  .tl-item.left .tl-dot-wrap{
-    grid-column:1;
-    grid-row:1;
-    padding-top:8px;
-  }
-  .tl-dot{width:36px;height:36px;}
-  /* Card: always in second column, full width */
+  .tl-item.left .tl-dot-wrap{grid-column:1;grid-row:1;}
   .tl-item.right .tl-card,
   .tl-item.left .tl-card{
-    grid-column:2;
-    grid-row:1;
-    margin:0;
+    grid-column:2;grid-row:1;
+    margin-left:0;
   }
-  /* Remove left/right card arrows on mobile */
-  .tl-item.right .tl-card::before,
-  .tl-item.left .tl-card::before{display:none;}
-  /* Keep left card's dark bg readable */
-  .tl-item.left .tl-card{background:#1a6eb5;}
+  .tl-item.right .tl-date,
+  .tl-item.left .tl-date{
+    grid-column:2;grid-row:2;
+    text-align:left;justify-content:flex-start;
+    padding-left:0;padding-right:0;padding-top:8px;
+  }
+  /* Reset the card arrows for single-column */
+  .tl-item.right .tl-card::before{
+    top:20px;left:-12px;right:auto;
+    border:12px solid transparent;
+    border-right-color:#f0f0f0;
+  }
+  .tl-item.left .tl-card::before{
+    top:20px;left:-12px;right:auto;
+    border:12px solid transparent;
+    border-right-color:#1a6eb5;
+  }
 
-  /* ── Contact page ── */
-  .contact-page{padding:20px 16px 48px;}
-  .contact-card{padding:24px 18px;}
+  /* Contact page */
+  .contact-page{padding:20px 16px 60px;}
+  .contact-card{padding:24px 20px;}
   .contact-card-inner{flex-direction:column;align-items:center;text-align:center;}
 
-  /* ── Hire Me page ── */
-  .hire-page{padding:20px 16px 48px;}
-  .hire-cards{gap:14px;}
-  .hire-card{width:calc(50% - 7px);min-width:130px;}
-  .hire-btns{flex-direction:column;align-items:stretch;}
-  .hire-btn,.hire-btn-ghost{justify-content:center;}
+  /* Hire Me page */
+  .hire-page{padding:20px 20px 60px;}
+  .hire-cards{flex-direction:column;align-items:center;}
+  .hire-card{width:100%;max-width:340px;}
+  .hire-btns{flex-direction:column;align-items:center;width:100%;}
+  .hire-btn,.hire-btn-ghost{width:100%;max-width:340px;justify-content:center;}
+}
 
-  /* ── Page sections ── */
-  .page{padding-top:70px;}
-  #page-hire{padding-top:60px;}
-  #page-contact{padding-top:60px;}
+/* ══════════════════════════════════
+   TABLET — 601px – 900px
+══════════════════════════════════ */
+@media(min-width:601px) and (max-width:900px){
+  .nav-links{gap:14px;}
+  .nav-links a{font-size:.78rem;}
+  .projects-grid{grid-template-columns:repeat(2,1fr);}
+  .skills-page{padding:90px 32px 60px;}
+  .pro-page{padding:90px 32px 60px;}
+  /* Timeline: keep 3-column but tighter */
+  .tl-item{grid-template-columns:1fr 48px 1fr;}
 }
